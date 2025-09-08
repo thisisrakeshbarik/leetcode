@@ -9,19 +9,36 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
-void dfs(TreeNode* root,vector<int>& ans){
-    if(root == nullptr) return;
-    ans.push_back(root->val);
-    dfs(root->left,ans);
-    dfs(root->right,ans);
+    vector<int> preorderTraversal(TreeNode* root) { 
+        vector<int> preOrder;
+        if(root == nullptr) return preOrder;
+        stack <TreeNode*> st;
+        st.push(root);
+        while(!st.empty()){
+            TreeNode* temp = st.top();
+            st.pop();
+            preOrder.push_back(temp->val);
+            if(temp->right!=nullptr){
+                st.push(temp->right);
+            }
+            if(temp->left!=nullptr){
+                st.push(temp->left);
+            }
+        } 
 
-}
-
-    vector<int> preorderTraversal(TreeNode* root) {
-        vector<int> ans;
-        dfs(root,ans);
-        return ans;  
+        return preOrder;
     }
 };
