@@ -5,32 +5,34 @@ public:
         return c == 'a' || c == 'e' || c == 'o'|| c == 'u'|| c == 'i' 
             || c == 'A' || c == 'E' || c == 'O'|| c == 'U'|| c == 'I';
     }
-
+    
     string sortVowels(string s) {
-        string temp;
+        unordered_map<char, int> count;
 
-        // Store the vowels in the temporary string.
+        // Store the frequencies for each character.
         for (char c : s) {
             if (isVowel(c)) {
-                temp += c;
+                count[c]++;
             }
         }
-        
-        // Sort the temporary string characters in ascending order.
-        sort(temp.begin(), temp.end());
 
-        int j = 0;
+        // Sorted string having all the vowels.
+        string sortedVowel = "AEIOUaeiou";
         string ans;
+        int j = 0;
         for (int i = 0; i < s.size(); i++) {
-            // If the character is a vowel, replace it with the character in the string temp.
-            if (isVowel(s[i])) {
-                ans += temp[j];
-                j++;
-            } else {
+            if (!isVowel(s[i])) {
                 ans += s[i];
+            } else {
+                // Skip to the character which is having remaining count.
+                while (count[sortedVowel[j]] == 0) {
+                    j++;
+                }
+
+                ans += sortedVowel[j];
+                count[sortedVowel[j]]--;
             }
         }
-        
         return ans;
     }
 };
