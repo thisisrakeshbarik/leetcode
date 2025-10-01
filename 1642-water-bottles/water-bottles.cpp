@@ -4,15 +4,16 @@ public:
         int consumedBottles = 0;
 
         while (numBottles >= numExchange) {
-            // Consume numExchange full bottles.
-            consumedBottles += numExchange;
-            numBottles -= numExchange;
+            // Maximum number of times we can consume numExchange
+            // number of bottles using numBottles.
+            int K = numBottles / numExchange;
 
-            // Exchange them for one full bottle.
-            numBottles++;
+            consumedBottles += numExchange * K;
+            numBottles -= numExchange * K;
+
+            numBottles += K;
         }
 
-        // Consume the remaining numBottles (<numExchange).
         return consumedBottles + numBottles;
     }
 };
