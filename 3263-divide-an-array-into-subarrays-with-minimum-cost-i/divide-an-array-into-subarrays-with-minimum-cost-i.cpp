@@ -2,10 +2,10 @@ class Solution {
 public:
     int minimumCost(vector<int>& nums) {
         int first = nums[0];
-        nums.erase(nums.begin());
-        sort(nums.begin(),nums.end());
-        return first + nums[0]+ nums[1];
 
-        
+        vector<int> rest(nums.begin() + 1, nums.end());
+        sort(rest.begin(), rest.end());
+
+        return first + rest[0] + rest[1];
     }
 };
